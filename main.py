@@ -4,7 +4,7 @@ from pygame import mixer
 import pygame
 
 # Icon
-icon = pygame.image.load('Space Invader\\ufo.png')
+icon = pygame.image.load('img\\ufo.png')
 pygame.display.set_icon(icon)
 
 # Screen, Intializing and Title
@@ -13,13 +13,13 @@ screen = pygame.display.set_mode((800, 600))
 pygame.display.set_caption("Space Invaders")
 
 # Player
-playerIcon = pygame.image.load('Space Invader\\space.png')
+playerIcon = pygame.image.load('img\\space.png')
 playerX = 370
 playerY = 450
 playerX_change = 0
 
 # Bullet
-bulletIcon = pygame.image.load('Space Invader\\bullet.png')
+bulletIcon = pygame.image.load('img\\bullet.png')
 bulletY = 450
 bulletX = 0
 bulletX_change = 0
@@ -28,7 +28,7 @@ bullet_state = "ready"
 
 # Score
 score_v = 0
-f = pygame.font.Font('Space Invader\\Roboto-Black.ttf', 30)
+f = pygame.font.Font('font\\Roboto-Black.ttf', 30)
 
 textX = 10
 textY = 10
@@ -50,7 +50,7 @@ def spwanEnemy():
     numberEnimies = 3
 
     for i in range(numberEnimies):
-        enemyIcon.append(pygame.image.load('Space Invader\\alien.png'))
+        enemyIcon.append(pygame.image.load('img\\alien.png'))
         enemyY.append(randint(50, 200))
         enemyX.append(randint(100, 300))
         enemyX_change.append(2)
@@ -82,19 +82,19 @@ def isColistion(eX, eY, bX, bY):
     return True if sqrt(pow(eX-eY, 2)+pow(bX-bY, 2)) < 50 else False
 
 def gameOverText():
-    o  = pygame.font.Font('Space Invader\\Roboto-Black.ttf',80)
+    o  = pygame.font.Font('font\\Roboto-Black.ttf',80)
     over = o.render("Game Over", True, (255, 0, 0))
     screen.blit(over, (200,250))
 
 # Game Loop
 executing = True
 
-mixer.music.load('Space Invader\\background.wav')
+mixer.music.load('music\\background.wav')
 mixer.music.play(-1)
 
 while executing:
     # Background
-    bg = pygame.image.load("Space Invader\\bg.jpg")
+    bg = pygame.image.load("img\\bg.jpg")
     screen.blit(bg, (0, 0))
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -106,7 +106,7 @@ while executing:
                 playerX_change = 4
             elif event.key == pygame.K_SPACE or event.key == pygame.K_UP:
                 if bullet_state == "ready":
-                    b = mixer.Sound('Space Invader\\laser.wav')
+                    b = mixer.Sound('music\\laser.wav')
                     b.play()
                     bulletY_change = 8 
                     bulletX = playerX
@@ -145,7 +145,7 @@ while executing:
 
         col = isColistion(enemyX[i], enemyY[i], bulletX, bulletY)
         if col:
-            c = mixer.Sound('Space Invader\\explosion.wav')
+            c = mixer.Sound('music\\explosion.wav')
             c.play()
             bulletY = 450
             bullet_state = "ready"
